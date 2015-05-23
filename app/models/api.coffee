@@ -14,7 +14,7 @@ class ApiModel
 
     getEngineData: (@regNumber, @from, @to, cb) ->
         $.getJSON(@url("getenginedata/?RegNumber=#{@regNumber}&from=#{@from}&to=#{@to}"), (data) ->
-            return data
+            cb(data)
         )
 
     getTripsData: (@regNumber, @from, @to, cb) ->

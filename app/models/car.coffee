@@ -7,7 +7,7 @@ module.exports = class CarModel extends Backbone.Model
       @engine = new Engine(reg)
       @trips = new TripCollection(reg)
       @fetch()
-      setInterval(@fetchLocation, 3000)
+      setInterval(@fetchLocation, 4000)
     fetch: (cb) =>
       Api.getVehicleInfo @reg, (data) =>
         @set(data)
@@ -17,4 +17,5 @@ module.exports = class CarModel extends Backbone.Model
         @set({position: data})
         cb() if cb?
       Api.getEngineData @reg, moment().subtract(5, 'minutes').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"), (data) =>
-        console.log data
+        console.log(data[0])
+        @set({engine: data[0]})

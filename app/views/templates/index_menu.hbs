@@ -1,6 +1,10 @@
 <div class="container">
-     <h1>{{RegNumber}}</h1>
-     <p><b>Speed: </b> {{position.Speed}} km/h</p>
-     <p><b>Course: </b> {{position.Course}} deg</p>
-     
+     <h1>Tracking: {{RegNumber}}</h1>
+     <table class="table table-striped">
+         <tbody>
+            <tr><td><b>Speed: </b></td><td> {{position.Speed}} km/h</td></tr>
+            <tr><td><b>Course (heading): </b></td><td> {{position.Course}} deg</td></tr>
+            <tr><td><b>RPM: </b></td><td> {{engine.RPM}} rotations/min</td></tr> 
+         </tbody>
+     </table>
 </div>
