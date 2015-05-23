@@ -3,7 +3,7 @@ module.exports = class TripView extends Backbone.View
     el: "section.app"
     initialize: =>
         @trips = new TripCollection("SK014")
-        @trips.on "change", =>
+        @trips.on "reset", =>
             console.log(@trips.toJSON())
 
 
