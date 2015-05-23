@@ -1,7 +1,7 @@
 class MainRouter extends Backbone.Router
     routes:
         '': 'index'
-        '/trips': 'trips'
+        'trips': 'trips'
 
     index: ->
         IndexView = require 'views/index'
@@ -10,7 +10,7 @@ class MainRouter extends Backbone.Router
 
     trips: ->
         TripsView = require 'views/trips'
-        trips = new TripView()
+        trips = new TripsView()
         trips.launch()
 
 main = new MainRouter()
