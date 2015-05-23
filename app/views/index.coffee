@@ -33,8 +33,10 @@ module.exports = class IndexView extends Backbone.View
       @map = new google.maps.Map(@$el.find("#map-canvas")[0], mapOptions)
       @marker = new google.maps.Marker
         map: @map
+        image: '/images/car.png'
       @youMark = new google.maps.Marker
         map: @map
+        image: '/images/user.png'
       @reloadMap()
     reloadMap: =>
       return unless @marker? and @car.get("position")?
