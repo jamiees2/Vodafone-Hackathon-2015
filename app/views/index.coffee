@@ -7,6 +7,11 @@ module.exports = class IndexView extends Backbone.View
       @car.trips.fetch("2015-05-20 16:00", "2015-05-21 16:00")
       @car.on "change:position", @reloadMap
       @car.on "change", @updateMenu
+      $(window).on "resize", @resizeMap
+    remove: =>
+      $(window).off "resize", @resizeMap
+      super
+
 
     template: require 'views/templates/index'
     menuTemplate: require 'views/templates/index_menu'
@@ -35,5 +40,9 @@ module.exports = class IndexView extends Backbone.View
       @marker.setPosition(l)
       @map.panTo(l)
       @map.setZoom(16)
+    resizeMap: =>
+      center = @map.getCenter()
+      google.maps.event.trigger(@map, "resize")
+      @map.setCenter(center)
 
 

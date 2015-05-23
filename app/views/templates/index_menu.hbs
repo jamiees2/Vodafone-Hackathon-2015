@@ -1,10 +1,17 @@
-<div class="container">
-     <h1>Tracking: {{RegNumber}}</h1>
-     <table class="table table-striped">
-         <tbody>
-            <tr><td><b>Speed: </b></td><td> {{position.Speed}} km/h</td></tr>
-            <tr><td><b>Course (heading): </b></td><td> {{position.Course}} deg</td></tr>
-            <tr><td><b>RPM: </b></td><td> {{engine.RPM}} rotations/min</td></tr> 
-         </tbody>
-     </table>
-</div>
+ <h1>Tracking: <b class="regnumber light-blue-text
+ text-darken-4">{{RegNumber}}</b></h1>
+ <table class="table ">
+     <thead>
+        <tr>
+          <th>Speed</th>
+          <th>Course (heading):</th>
+          <th>RPM</th>
+     </thead>
+     <tbody>
+        <tr>
+            <td> {{position.Speed}} km/h</td>
+            <td> {{position.Course}} deg</td>
+            <td> {{engine.RPM}} rotations/min</td>
+        </tr> 
+     </tbody>
+ </table>

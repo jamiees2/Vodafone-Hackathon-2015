@@ -15,3 +15,9 @@ class MainRouter extends Backbone.Router
 
 main = new MainRouter()
 module.exports = main
+
+
+# Fix the tab stupidness
+$ ->
+    $(".tabs a:not([href^=#])").on 'click', ->
+        main.navigate($(this).attr('href'), true)
