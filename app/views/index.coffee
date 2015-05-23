@@ -3,5 +3,5 @@ module.exports = class IndexView extends Backbone.View
     initialize: ->
       console.log 'Index View'
       car = new CarModel("OT380")
-      car.fetch ->
+      car.on "change", ->
           console.log(car.get("RegNumber"))

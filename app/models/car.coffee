@@ -9,6 +9,5 @@ module.exports = class CarModel extends Backbone.Model
       @fetch()
     fetch: (cb) =>
       Api.getVehicleInfo @reg, (data) =>
-        console.log data
         @set(data)
         cb() if cb?
