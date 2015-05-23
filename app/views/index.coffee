@@ -33,9 +33,15 @@ module.exports = class IndexView extends Backbone.View
       @map = new google.maps.Map(@$el.find("#map-canvas")[0], mapOptions)
       @marker = new google.maps.Marker
         map: @map
+      @youMark = new google.maps.Marker
+        map: @map
       @reloadMap()
     reloadMap: =>
       return unless @marker? and @car.get("position")?
+        navigator.geolocation.getCurrentPosition( (@location) =>
+            youLat = new google.maps.LatLng(@location.coords.latitude, @location.coords.longitude)
+            @youMark.setPosition(youLat)
+        )
       l = new google.maps.LatLng(@car.get("position").Lat, @car.get("position").Lon)
       @marker.setPosition(l)
       @map.panTo(l)
@@ -44,5 +50,3 @@ module.exports = class IndexView extends Backbone.View
       center = @map.getCenter()
       google.maps.event.trigger(@map, "resize")
       @map.setCenter(center)
-
-
