@@ -12,6 +12,8 @@ module.exports = class IndexView extends Backbone.View
         @$el.html @template @car.toJSON()
         @loadMap()
 
+        return @
+
     loadMap: () =>
         mapOptions =
             zoom: 8,

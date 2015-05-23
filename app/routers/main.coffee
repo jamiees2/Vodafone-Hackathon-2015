@@ -3,8 +3,9 @@ class MainRouter extends Backbone.Router
         '': 'index'
 
     index: ->
-        App = require 'views/app'
-        app = new App()
+        IndexView = require 'views/index'
+        index = new IndexView()
+        $("section.app").html(index.render().$el)
 
 main = new MainRouter()
 module.exports = main
