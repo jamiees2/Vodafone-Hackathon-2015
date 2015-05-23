@@ -7,7 +7,12 @@ module.exports = class CarModel extends Backbone.Model
       #@trips = new TripCollection(reg)
       #@positions = new PositionCollection(reg)
       @fetch()
+      setInterval(@fetchLocation, 10000)
     fetch: (cb) =>
       Api.getVehicleInfo @reg, (data) =>
         @set(data)
+        cb() if cb?
+    fetchLocation: (cb) =>
+      Api.getPosition @reg, (data) =>
+        @set({position: data})
         cb() if cb?
