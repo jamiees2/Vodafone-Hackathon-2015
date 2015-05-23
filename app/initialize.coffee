@@ -2,9 +2,14 @@
 require 'lib/helpers'
 
 # Initialize Router
-require 'routers/main'
+main = require 'routers/main'
 
 $ ->
     # Initialize Backbone History
     Backbone.history.start pushState: yes
     console.log "screw you :3"
+    # Fix the tab stupidness
+    $(".tabs").tabs("select_tab",Backbone.history.fragment)
+    $(".tabs a").on 'click', ->
+        main.navigate($(this).attr('data-href'), true)
+

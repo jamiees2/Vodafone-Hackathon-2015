@@ -5,7 +5,11 @@ module.exports = class TripsView extends Backbone.View
         @trips = new TripCollection("SK014")
         @trips.on "reset", =>
             # console.log(@trips.toJSON())
-
+    remove: =>
+      @$el.empty().off()
+      @stopListening()
+      #super
+ 
 
     template: require 'views/templates/trips'
 
