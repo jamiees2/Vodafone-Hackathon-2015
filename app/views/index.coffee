@@ -5,7 +5,7 @@ module.exports = class IndexView extends Backbone.View
       console.log 'Index View'
       @car = new CarModel("OT380")
       @car.on "change", =>
-          console.log(@car.get("RegNumber"))
+          console.log(@car.get("position"))
 
     template: require 'views/templates/index'
 
@@ -20,7 +20,7 @@ module.exports = class IndexView extends Backbone.View
     loadMap: () =>
         mapOptions =
             zoom: 8,
-            center: new google.maps.LatLng(-34.397, 150.644)
+            center: new google.maps.LatLng(@car.get("position").Lat, @car.get("position").Lon)
 
         @map = new google.maps.Map(@$el.find("#map-canvas")[0], mapOptions)
 
