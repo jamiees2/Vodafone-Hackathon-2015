@@ -40,28 +40,3 @@ exports.config =
 
     conventions:
         assets: /(assets|vendor\/assets|font)/
-    server:
-        path: 'server.coffee'
-        port: 3333
-        base: '/'
-        app: 'express'
-        debug: 'brunch:server'
-        persistent: true
-        interval: 100
-        watched: ['public', 'express']
-        ignore: /(^[.#]|(?:~)$)/
-        source: /.*\.coffee$/
-        linter:
-            enabled: on
-            coffeelint:
-                pattern: /.*\.coffee$/
-                options:
-                    indentation:
-                        value: 4
-                        level: "error"
-        tester:
-            enabled: on
-            mocha:
-                pattern: /^.*_test\.coffee$/
-                options:
-                    reporter:'spec'
