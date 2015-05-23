@@ -11,7 +11,7 @@ module.exports = class CarModel extends Backbone.Model
     fetch: (cb) =>
       Api.getVehicleInfo @reg, (data) =>
         @set(data)
-        cb() if cb?
+        @fetchLocation(cb)
     fetchLocation: (cb) =>
       Api.getPosition @reg, (data) =>
         @set({position: data})
