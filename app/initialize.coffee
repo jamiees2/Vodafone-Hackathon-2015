@@ -7,3 +7,4 @@ require 'routers/main'
 $ ->
     # Initialize Backbone History
     Backbone.history.start pushState: yes
+    console.log "screw you :3"
