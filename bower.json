@@ -15,7 +15,8 @@
     "normalize-css": "~2",
     "h5bp-helpers": "~0.1",
     "font-awesome": "~4",
-    "bootstrap": "~3.3.4"
+    "bootstrap": "~3.3.4",
+    "moment": "~2.10.3"
   },
   "overrides": {
     "backbone": {
