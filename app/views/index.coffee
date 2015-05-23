@@ -1,5 +1,6 @@
 CarModel = require '../models/car'
 module.exports = class IndexView extends Backbone.View
+    el: "section.app"
     initialize: =>
       console.log 'Index View'
       @car = new CarModel("OT380")
@@ -8,6 +9,8 @@ module.exports = class IndexView extends Backbone.View
 
     template: require 'views/templates/index'
 
+    launch: =>
+      @render()
     render: =>
         @$el.html @template @car.toJSON()
         @loadMap()
