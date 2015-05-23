@@ -1,8 +1,44 @@
-<table style="width: 100%">
-    {{#each trips}}
+<table class="table table-hover" style="width: 100%">
+    <thead>
         <tr>
-            <td>
-            </td>
+                <td>
+                    Start Time
+                </td>
+                <td>
+                    End Time
+                </td>
+                <td>
+                    Fuel
+                </td>
+                <td>
+                    Average Fuel
+                </td>
+                <td>
+                    KM
+                </td>
         </tr>
-    {{/each}}
+    </thead>
+    <tbody>
+        {{#each trips}}
+                <tr>
+                    <td>
+                        <a href="../trip?starttime={{StartTime}}">
+                            {{StartTime}}
+                        </a>
+                    </td>
+                    <td>
+                        {{EndTime}}
+                    </td>
+                    <td>
+                        {{Fuel}}
+                    </td>
+                    <td>
+                        {{AvgFuel}}
+                    </td>
+                    <td>
+                        {{Km}}
+                    </td>
+                </tr>
+        {{/each}}
+    </tbody>
 </table>

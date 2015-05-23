@@ -1,17 +1,17 @@
 TripCollection = require '../collections/trips'
-module.exports = class TripsView extends Backbone.View
+module.exports = class TripView extends Backbone.View
     el: "section.app"
     initialize: =>
-        @trips = new TripCollection("SK014")
+        @trip = new TripModel("SK014", )
         @trips.on "reset", =>
             # console.log(@trips.toJSON())
 
 
-    template: require 'views/templates/trips'
+    template: require 'views/templates/trip'
 
     launch: =>
       @render()
 
     render: =>
         @trips.on "reset", =>
-            @$el.html @template {trips: @trips.toJSON()}
+            @$el.html @template @trip.toJSON()
