@@ -4,13 +4,21 @@ module.exports = class IndexView extends Backbone.View
     initialize: =>
       console.log 'Index View'
       @car = new CarModel("SK014")
-      @car.trips.fetch("2015-05-20 16:00", "2015-05-21 16:00")
       @car.on "change:position", @reloadMap
       @car.on "change", @updateMenu
       $(window).on "resize", @resizeMap
+        
+      @refreshCar()
+    refreshCar: =>
+      @car.fetchLocation()
+      @timeout = setTimeout @refreshCar, 4000
     remove: =>
+      console.log("clear")
       $(window).off "resize", @resizeMap
-      super
+      clearTimeout @timeout
+      @$el.empty().off()
+      @stopListening()
+      #super
 
 
     template: require 'views/templates/index'

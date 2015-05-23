@@ -1,13 +1,11 @@
 Api = require './api'
-Engine = require './engine'
-TripCollection = require 'collections/trips'
 module.exports = class CarModel extends Backbone.Model
+    events:
+      "update": "fetchLocation"
     initialize: (reg) =>
       @reg = reg
-      @engine = new Engine(reg)
-      @trips = new TripCollection(reg)
       @fetch()
-      setInterval(@fetchLocation, 4000)
+      
     fetch: (cb) =>
       Api.getVehicleInfo @reg, (data) =>
         @set(data)

@@ -1,20 +1,17 @@
-<table class="table table-hover" style="width: 100%">
+<table class="table hoverable striped" style="width: 100%">
     <thead>
         <tr>
                 <td>
-                    Start Time
+                    Date
+                </td>
+               <td>
+                    Fuel usage (liters)
                 </td>
                 <td>
-                    End Time
+                    Average Fuel Use (l/100)
                 </td>
                 <td>
-                    Fuel
-                </td>
-                <td>
-                    Average Fuel
-                </td>
-                <td>
-                    KM
+                    Kilometers travelled
                 </td>
         </tr>
     </thead>
@@ -23,20 +20,17 @@
                 <tr>
                     <td>
                         <a href="../trip?starttime={{StartTime}}">
-                            {{StartTime}}
+                            {{fromNow StartTime}}
                         </a>
                     </td>
-                    <td>
-                        {{EndTime}}
+                   <td>
+                        {{toPrecision Fuel 2}}
                     </td>
                     <td>
-                        {{Fuel}}
+                        {{toPrecision AvgFuel 2}}
                     </td>
                     <td>
-                        {{AvgFuel}}
-                    </td>
-                    <td>
-                        {{Km}}
+                        {{toPrecision Km 2}}
                     </td>
                 </tr>
         {{/each}}
