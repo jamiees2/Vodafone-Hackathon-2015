@@ -7,7 +7,7 @@ module.exports = class IndexView extends Backbone.View
       @car.on "change:position", @reloadMap
       @car.on "change", @updateMenu
       $(window).on "resize", @resizeMap
-        
+
       @refreshCar()
     refreshCar: =>
       @car.fetchLocation()
@@ -41,10 +41,10 @@ module.exports = class IndexView extends Backbone.View
       @map = new google.maps.Map(@$el.find("#map-canvas")[0], mapOptions)
       @marker = new google.maps.Marker
         map: @map
-        image: '/images/car.png'
+        icon: '/images/car.png'
       @youMark = new google.maps.Marker
         map: @map
-        image: '/images/user.png'
+        icon: '/images/user.png'
       @reloadMap()
     reloadMap: =>
       return unless @marker? and @car.get("position")?
