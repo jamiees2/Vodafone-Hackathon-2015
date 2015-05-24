@@ -1,4 +1,5 @@
-<table class="table hoverable striped" style="width: 100%">
+<div id="map-canvas"></div>
+<table class="table striped trips" style="width: 100%">
     <thead>
         <tr>
                 <td>
@@ -16,23 +17,21 @@
         </tr>
     </thead>
     <tbody>
-        {{#each trips}}
-                <tr>
+        {{#eachIndex trips}}
+                <tr data-item="{{index}}">
                     <td>
-                        <a href="../trip?starttime={{StartTime}}">
-                            {{fromNow StartTime}}
-                        </a>
+                        {{fromNow item.StartTime}}
                     </td>
                    <td>
-                        {{toPrecision Fuel 2}}
+                        {{toPrecision item.Fuel 2}}
                     </td>
                     <td>
-                        {{toPrecision AvgFuel 2}}
+                        {{toPrecision item.AvgFuel 2}}
                     </td>
                     <td>
-                        {{toPrecision Km 2}}
+                        {{toPrecision item.Km 2}}
                     </td>
                 </tr>
-        {{/each}}
+        {{/eachIndex}}
     </tbody>
 </table>

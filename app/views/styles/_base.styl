@@ -48,3 +48,33 @@ input{
 	font-size: 14px;
 	line-height: 1.2em;
 }
+
+.tabs {
+    background-color: #ee6e73;
+}
+.tabs .tab a {
+    color: white;
+}
+.tabs .indicator {
+    background-color: lighten(#f6b2b5, 50%);
+}
+.container{width: 100%;}
+@media only screen and (min-width: 601px) {
+.container {
+  width: 100%;
+  padding: 0 1.5rem;
+}
+}
+.trips {
+    td, th {
+        border-radius: 0px;
+    }
+    tbody tr {
+        cursor: pointer;
+        &:hover{
+            background-color: lighten(#ee6e73,20%) !important;
+        }
+
+    }
+}
+
