@@ -4,7 +4,8 @@ require 'lib/helpers'
 # Initialize Router
 main = require 'routers/main'
 
-window.CAR = "SK014"
+localStorage["CAR"] = "SK014" unless localStorage["CAR"]
+window.CAR = localStorage["CAR"] if localStorage["CAR"]?
 
 $ ->
     # Initialize Backbone History

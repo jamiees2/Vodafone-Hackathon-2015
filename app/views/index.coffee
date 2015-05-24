@@ -48,14 +48,23 @@ module.exports = class IndexView extends Backbone.View
       @reloadMap()
     reloadMap: =>
       return unless @marker? and @car.get("position")?
-        navigator.geolocation.getCurrentPosition( (@location) =>
-            youLat = new google.maps.LatLng(@location.coords.latitude, @location.coords.longitude)
-            @youMark.setPosition(youLat)
+      bounds = new google.maps.LatLngBounds()
+      fixBounds = _.after(2, => 
+        @map.fitBounds(bounds)
+        @map.setCenter(bounds.getCenter())
         )
+      navigator.geolocation.getCurrentPosition( (@location) =>
+          youLat = new google.maps.LatLng(@location.coords.latitude, @location.coords.longitude)
+          bounds.extend(youLat)
+          @youMark.setPosition(youLat)
+          fixBounds()
+      )
       l = new google.maps.LatLng(@car.get("position").Lat, @car.get("position").Lon)
+      bounds.extend(l)
       @marker.setPosition(l)
       @map.panTo(l)
       @map.setZoom(16)
+      fixBounds()
       # bounds = new google.maps.LatLngBounds()
       # markers = []
       # markers.push(@marker)
