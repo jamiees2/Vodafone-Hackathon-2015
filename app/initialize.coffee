@@ -4,6 +4,8 @@ require 'lib/helpers'
 # Initialize Router
 main = require 'routers/main'
 
+window.CAR = "SK014"
+
 $ ->
     # Initialize Backbone History
     Backbone.history.start pushState: yes

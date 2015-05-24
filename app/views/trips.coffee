@@ -6,9 +6,9 @@ module.exports = class TripsView extends Backbone.View
     "click .data .trips tbody tr": "selectItem"
 
   initialize: =>
-    @trips = new TripCollection([], "SK014")
+    @trips = new TripCollection([], window.CAR)
     @trips.fetchRecent()
-    @selected_trips = new TripCollection([], "SK014")
+    @selected_trips = new TripCollection([], window.CAR)
     # @selected_trips.on "add", @reloadMap
     @trips.on "reset", =>
       # console.log(@trips.toJSON())

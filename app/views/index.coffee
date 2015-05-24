@@ -3,7 +3,7 @@ module.exports = class IndexView extends Backbone.View
     el: "section.app"
     initialize: =>
       console.log 'Index View'
-      @car = new CarModel("SK014")
+      @car = new CarModel(window.CAR)
       @car.on "change:position", @reloadMap
       @car.on "change", @updateMenu
       $(window).on "resize", @resizeMap
