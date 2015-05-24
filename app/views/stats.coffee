@@ -126,24 +126,29 @@ module.exports = class StatView extends Backbone.View
                 $("#service").text("Your next inspection is in " + data.days + " days")
 
     getTotalFuel: (cb) =>
-        Api.getEngineData "SK014", moment().subtract(24, 'hours').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"), (data) =>
+        Api.getEngineData window.CAR, moment().subtract(24, 'hours').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"), (data) =>
                 ret = []
+                cost = 0
                 for x in data
+                    c = x.TotalFuel * 221
+                    if c > cost
+                        cost = c
                     ret.push({time: x.GPStime, totalFuel: x.TotalFuel})
-                cb(ret)
+                cb({"totalCost": cost, "data": ret})
 
     updateTotalFuel: =>
         @getTotalFuel (data) =>
             new Morris.Line({
                 element: 'totalfuelchart',
-                data: data,
+                data: data.data,
                 xkey: 'time',
                 ykeys: ['totalFuel'],
                 labels: ['Gas Units']
             })
+            $("#totalfuelcost").text("Total Fuel Cost: " + data.totalCost + "Kr")
 
     getCO2: (cb) =>
-        Api.getTripsData "SK014", moment().subtract(3, 'days').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"), (data) =>
+        Api.getTripsData window.CAR, moment().subtract(3, 'days').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"), (data) =>
             ret = []
             sumKm = 0
             sumCo2 = 0
@@ -157,11 +162,11 @@ module.exports = class StatView extends Backbone.View
     updateCO2: =>
         @getFuelCost (data) =>
             new Morris.Line({
-                element: 'fuelcostchart',
-                data: data.data,
+                element: 'co2chart',
+                data: data,
                 xkey: 'time',
-                ykeys: ['cost', 'km'],
-                labels: ['ISK', 'KM']
+                ykeys: ['Co2', 'km'],
+                labels: ['CO2', 'KM']
             })
             $("#sumCost").text("Total Cost: " + data.sumCost + "Kr")
             $("#sumKm").text("Total KM Driven: " +data.sumKm)
