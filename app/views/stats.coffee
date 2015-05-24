@@ -4,7 +4,7 @@ module.exports = class StatView extends Backbone.View
     el: "section.app"
     initialize: =>
         console.log 'Stat View'
-        @car = new CarModel("SK014")
+        @car = new CarModel(window.CAR)
         @updateRPM()
         @updateAvgFuel()
         @updateFuelCost()
@@ -26,7 +26,7 @@ module.exports = class StatView extends Backbone.View
         @$el.html @template @car.toJSON()
 
     getEngineData: (cb) =>
-        Api.getEngineData "SK014", moment().subtract(24, 'hours').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"), (data) =>
+        Api.getEngineData window.CAR, moment().subtract(24, 'hours').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"), (data) =>
             ret = []
             for x in data
                 ret.push({time: x.GPStime, rpm: x.RPM})
@@ -43,7 +43,7 @@ module.exports = class StatView extends Backbone.View
             })
 
     getAvgFuel: (cb) =>
-        Api.getTripsData "SK014", moment().subtract(3, 'days').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"), (data) =>
+        Api.getTripsData window.CAR, moment().subtract(3, 'days').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"), (data) =>
             ret = []
             for x in data
                 ret.push({time: x.StartTime, avgfuel: x.AvgFuel})
@@ -60,7 +60,7 @@ module.exports = class StatView extends Backbone.View
             })
 
     getFuelCost: (cb) =>
-        Api.getTripsData "SK014", moment().subtract(3, 'days').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"), (data) =>
+        Api.getTripsData window.CAR, moment().subtract(3, 'days').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"), (data) =>
             ret = []
             sumCost = 0
             sumKm = 0
@@ -87,7 +87,7 @@ module.exports = class StatView extends Backbone.View
             $("#sumTime").text("Total Drive Time: " + data.sumTime)
 
     getSpeed: (cb) =>
-        Api.getPositionHistory "SK014", moment().subtract(24, 'hours').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"), (data) =>
+        Api.getPositionHistory window.CAR, moment().subtract(24, 'hours').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"), (data) =>
             ret = []
             points = 0
             sum = 0
@@ -114,7 +114,7 @@ module.exports = class StatView extends Backbone.View
             $("#avgSpeed").text("Average Speed: " + data.avgSpeed)
 
     getService: (cb) =>
-        Api.getVehicleInfo "SK014", (data) =>
+        Api.getVehicleInfo window.CAR, (data) =>
             ms = moment(data.NextInspection,"DD/MM/YYYY HH:mm:ss").diff(moment())
             cb({"days": moment.utc(moment.duration(ms)).format("DD"), "months": moment.utc(moment.duration(ms)).format("MM")})
 

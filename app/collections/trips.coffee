@@ -20,5 +20,5 @@ module.exports = class TripCollection extends Backbone.Collection
             totalDistance: sum @map (i) => parseFloat i.get("Km")
             totalFuel: sum @map (i) => parseFloat i.get("Fuel")
             avgFuel: waverage (@map (i) => (parseFloat i.get("AvgFuel"))), @map (i) => parseFloat i.get("Km")
-            totalCost: 218 * (sum @map (i) => parseFloat i.get("Fuel"))
+            totalCost: 221 * (sum @map (i) => parseFloat i.get("Fuel"))
         }
