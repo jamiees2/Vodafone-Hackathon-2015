@@ -1,4 +1,5 @@
 CarModel = require '../models/car'
+Api = require '../models/api'
 module.exports = class StatView extends Backbone.View
     el: "section.app"
     initialize: =>
@@ -31,24 +32,20 @@ module.exports = class StatView extends Backbone.View
         @$el.html @template @car.toJSON()
         @updateSpeed()
 
-    # @plotSpeed = $.plot("#speedChart",  [[[0, 12], [7, 12], null, [7, 2.5], [12, 2.5]] ], {
-    #     series: {
-    #         shadowSize: 2
-    #     },
-    #     yaxis: {
-    #         min: 0,
-    #         max: 100
-    #     },
-    #     xaxis: {
-    #         show: false
-    #     }
-    # })
 
-    # updateSpeed: =>
-    #     @plotSpeed.setData([[[0, 12], [7, 12], null, [7, 2.5], [12, 2.5]]])
+    getEngineData: =>
+        ret = []
+        Api.getEngineData "SK014", moment().subtract(24, 'hours').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"), (data) =>
+            for x in data
+                ret.push({time: x.GPStime, rpm: x.RPM})
+        return ret
 
-    #     @plotSpeed.draw()
-    #     setTimeout(update, 4000)
     updateSpeed: =>
-        d = [[0, 12], [7, 12], null, [7, 2.5], [12, 2.5]]
-        $.plot("#speedChart", [ d ])
+        console.log(@getEngineData())
+        new Morris.Line({
+            element: 'myfirstchart',
+            data: @getEngineData(),
+            xkey: 'time',
+            ykeys: ['rpm'],
+            labels: ['Value']
+        })
