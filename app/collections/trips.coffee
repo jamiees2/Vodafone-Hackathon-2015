@@ -5,7 +5,7 @@ module.exports = class TripCollection extends Backbone.Collection
     initialize: (args, reg) =>
       @reg = reg
     fetchRecent: =>
-      @fetch(moment().subtract(15, 'hours').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"))
+      @fetch(moment().subtract(18, 'hours').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"))
     fetch: (from, to) =>
         Api.getTripsData @reg, from, to, (data) =>
             @reset(data)
