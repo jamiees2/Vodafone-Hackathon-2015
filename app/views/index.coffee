@@ -1,6 +1,12 @@
 CarModel = require '../models/car'
 module.exports = class IndexView extends Backbone.View
     el: "section.app"
+    events: {
+      "change #car-choose": "changeCar"
+    }
+    changeCar: =>
+      localStorage["CAR"] = @$el.find("#car-choose").val()
+      window.location.reload()
     initialize: =>
       console.log 'Index View'
       @car = new CarModel(window.CAR)
@@ -62,8 +68,8 @@ module.exports = class IndexView extends Backbone.View
       l = new google.maps.LatLng(@car.get("position").Lat, @car.get("position").Lon)
       bounds.extend(l)
       @marker.setPosition(l)
-      @map.panTo(l)
-      @map.setZoom(16)
+      # @map.panTo(l)
+      # @map.setZoom(16)
       fixBounds()
       # bounds = new google.maps.LatLngBounds()
       # markers = []
