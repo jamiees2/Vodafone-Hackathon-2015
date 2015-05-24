@@ -1,0 +1,34 @@
+<table class="table striped trips" style="width: 100%">
+    <thead>
+        <tr>
+               <th>
+                    Total Distance
+                </th>
+                <th>
+                    Total Fuel Usage
+                </th>
+                <th>
+                    Average Fuel Usage
+                </th>
+                <th>
+                    Total Cost
+                </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+           <td>
+                {{toPrecision stats.totalDistance 2}} km
+            </td>
+            <td>
+                {{toPrecision stats.totalFuel 2}} liters
+            </td>
+            <td>
+                {{toPrecision stats.avgFuel 2}} liters/100km
+            </td>
+            <td>
+                {{toPrecision stats.totalCost 4}} kr. (estimated)
+            </td>
+        </tr>
+    </tbody>
+</table>

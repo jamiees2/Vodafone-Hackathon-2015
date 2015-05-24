@@ -45,11 +45,73 @@ input{
     tbody tr {
         cursor: pointer;
         &:hover{
-            background-color: lighten(#ee6e73,20%) !important;
+            background-color: lighten(#ee6e73,50%) !important;
         }
 
     }
 }
+
+
+.table {
+    width: 100%;
+}
+
+  table.rtable {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: block;
+    position: relative;
+    /* sort out borders */ }
+    table.rtable th, table.rtable td {
+      margin: 0;
+      vertical-align: top; }
+    table.rtable th {
+      text-align: left; }
+    table.rtable thead {
+      display: block;
+      float: left; }
+      table.rtable thead tr {
+        display: block;
+        padding: 0 10px 0 0; }
+        table.rtable thead tr th::before {
+          content: "\00a0"; }
+    table.rtable tbody {
+      display: block;
+      width: auto;
+      position: relative;
+      overflow-x: auto;
+      white-space: nowrap; }
+    table.rtable thead.pinned + tbody{
+      padding-left: 94px; }
+      table.rtable tbody tr {
+        display: block;
+        vertical-align: top; }
+    table.rtable th {
+      display: block;
+      text-align: right; }
+    table.rtable td {
+      display: block;
+      min-height: 1.25em;
+      text-align: left; }
+    table.rtable tr {
+      padding: 0 10px; }
+    table.rtable thead {
+      border: 0;
+      border-right: 1px solid #d0d0d0; }
+    table.rtable.bordered th {
+      border-bottom: 0;
+      border-left: 0; }
+    table.rtable.bordered td {
+      border-left: 0;
+      border-right: 0;
+      border-bottom: 0; }
+    table.rtable.bordered tr {
+      border: 0; }
+    table.rtable.bordered tbody tr {
+      border-right: 1px solid #d0d0d0; } 
+
+
 
 .chart-cont
 {
@@ -60,3 +122,4 @@ input{
 {
     height: 250px;
 }
+

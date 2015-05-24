@@ -5,3 +5,6 @@ Swag.registerHelpers()
 # Put your handlebars.js helpers here.
 Handlebars.registerHelper 'fromNow', (context, block) ->
     return moment(context).fromNow()
+
+Handlebars.registerHelper 'duration', (a, b) ->
+    moment.duration(moment(a).diff(moment(b))).humanize()
