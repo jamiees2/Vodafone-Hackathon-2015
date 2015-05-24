@@ -56,6 +56,15 @@ module.exports = class IndexView extends Backbone.View
       @marker.setPosition(l)
       @map.panTo(l)
       @map.setZoom(16)
+      # bounds = new google.maps.LatLngBounds()
+      # markers = []
+      # markers.push(@marker)
+      # markers.push(@youMark)
+      # for(i=0;i<markers.length;i++) {
+      #      bounds.extend(markers[i].getPosition())
+      # }
+      # @map.fitBounds(bounds)
+
     resizeMap: =>
       center = @map.getCenter()
       google.maps.event.trigger(@map, "resize")
