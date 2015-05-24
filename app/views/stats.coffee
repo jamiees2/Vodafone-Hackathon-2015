@@ -10,6 +10,7 @@ module.exports = class StatView extends Backbone.View
         @updateFuelCost()
         @updateSpeed()
         @updateService()
+        @updateTotalFuel()
 
     remove: =>
       @$el.empty().off()
@@ -22,7 +23,6 @@ module.exports = class StatView extends Backbone.View
       @render()
 
     render: =>
-        # @car.on "reset", =>
         @$el.html @template @car.toJSON()
 
     getEngineData: (cb) =>
@@ -124,3 +124,20 @@ module.exports = class StatView extends Backbone.View
                 $("#service").text("Your next inspection is in " + data.months + " months and " + data.days + " days")
             else
                 $("#service").text("Your next inspection is in " + data.days + " days")
+
+    getTotalFuel: (cb) =>
+        Api.getEngineData "SK014", moment().subtract(24, 'hours').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"), (data) =>
+                ret = []
+                for x in data
+                    ret.push({time: x.GPStime, totalFuel: x.TotalFuel})
+                cb(ret)
+
+    updateTotalFuel: =>
+        @getTotalFuel (data) =>
+            new Morris.Line({
+                element: 'totalfuelchart',
+                data: data,
+                xkey: 'time',
+                ykeys: ['totalFuel'],
+                labels: ['Gas Units']
+            })
