@@ -17,7 +17,8 @@
     "font-awesome": "~4",
     "moment": "~2.10.3",
     "materialize": "~0.96.1",
-    "flot": "~0.8.3"
+    "flot": "~0.8.3",
+    "morrisjs": "~0.5.1"
   },
   "overrides": {
     "backbone": {
