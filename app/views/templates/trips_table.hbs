@@ -1,0 +1,43 @@
+
+{{#empty trips}}
+    <h4>There are no trips to show</h4>
+{{else}}
+    <table class="table striped trips rtable">
+        <thead>
+            <tr>
+                    <th>
+                        Time
+                    </th>
+                    <th>
+                        Duration
+                    </th>
+                    <th>
+                        Distance
+                    </th>
+                    <th>
+                        Locations
+                    </th>
+                        
+            </tr>
+        </thead>
+        <tbody>
+            {{#eachIndex trips}}
+                <tr data-item="{{index}}">
+                    <td>
+                        {{fromNow item.StartTime}}
+                    </td>
+                    <td>{{duration item.StartTime item.EndTime}}
+                    <td>
+                        {{toPrecision item.Km 2}} kilometers
+                    </td>
+                    <td>
+                        {{item.FromAddress}} <br />
+                        <b>to</b> <br />
+                        {{item.ToAddress}}
+                    </td>
+                </tr>
+            {{/eachIndex}}
+        </tbody>
+    </table>
+
+{{/empty}}

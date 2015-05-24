@@ -1,37 +1,3 @@
 <div id="map-canvas"></div>
-<table class="table striped trips" style="width: 100%">
-    <thead>
-        <tr>
-                <td>
-                    Date
-                </td>
-               <td>
-                    Fuel usage (liters)
-                </td>
-                <td>
-                    Average Fuel Use (l/100)
-                </td>
-                <td>
-                    Kilometers travelled
-                </td>
-        </tr>
-    </thead>
-    <tbody>
-        {{#eachIndex trips}}
-                <tr data-item="{{index}}">
-                    <td>
-                        {{fromNow item.StartTime}}
-                    </td>
-                   <td>
-                        {{toPrecision item.Fuel 2}}
-                    </td>
-                    <td>
-                        {{toPrecision item.AvgFuel 2}}
-                    </td>
-                    <td>
-                        {{toPrecision item.Km 2}}
-                    </td>
-                </tr>
-        {{/eachIndex}}
-    </tbody>
-</table>
+<div class="menu"></div>
+<div class="data"></div>

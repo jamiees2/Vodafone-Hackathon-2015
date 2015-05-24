@@ -3,15 +3,13 @@ module.exports = class TripsView extends Backbone.View
   el: "section.app"
 
   events: 
-    "click .trips tbody tr": "selectItem"
+    "click .data .trips tbody tr": "selectItem"
 
   initialize: =>
-    @trips = new TripCollection("SK014")
+    @trips = new TripCollection([], "SK014")
     @trips.fetchRecent()
-    @selected_trips = new TripCollection("SK014")
+    @selected_trips = new TripCollection([], "SK014")
     # @selected_trips.on "add", @reloadMap
-    @selected_trips.on "update", @reloadMap
-    @selected_trips.on "remove", @removeMap
     @trips.on "reset", =>
       # console.log(@trips.toJSON())
   remove: =>
@@ -23,10 +21,10 @@ module.exports = class TripsView extends Backbone.View
     $it = $(e.currentTarget)
     idx = $it.attr("data-item")
     if $it.hasClass("data-selected")
+      $it.removeClass("teal lighten-4 data-selected")
       @selected_trips.remove(@trips.at(idx))
-      $it.removeClass("teal lighten-2 data-selected")
     else
-      $it.addClass("teal lighten-2 data-selected")
+      $it.addClass("teal lighten-4 data-selected")
       @selected_trips.add(@trips.at(idx))
   loadMap: () =>
     mapOptions =
@@ -35,14 +33,14 @@ module.exports = class TripsView extends Backbone.View
       mapTypeId : google.maps.MapTypeId.ROADMAP
 
     @map = new google.maps.Map @$el.find("#map-canvas")[0], mapOptions
-    # @map.setCenter new google.maps.LngLat(-21.895210, 64.135337)
-    # @reloadMap()
+    @selected_trips.on "update", @reloadMap
+    @selected_trips.on "remove", @removeMap
   reloadMap: =>
     bounds = new google.maps.LatLngBounds()
 
     @selected_trips.map (item) =>
       unless item.path?
-        item.getPositions (positions) =>
+        item.fetchPositions (positions) =>
           path = _.map positions, (it) =>
             l = new google.maps.LatLng(it.Lat, it.Lon)
             bounds.extend(l)
@@ -66,11 +64,22 @@ module.exports = class TripsView extends Backbone.View
     item.path.setMap(null) if item.path?
 
   template: require 'views/templates/trips'
+  tableTemplate: require 'views/templates/trips_table'
+  menuTemplate: require 'views/templates/trips_menu'
 
   launch: =>
     @render()
 
   render: =>
-    @trips.on "reset", =>
-      @$el.html @template {trips: @trips.toJSON()}
-      @loadMap()
+    @$el.html @template()
+    @loadMap()
+    loadTable = =>
+      @$el.find(".data").html @tableTemplate {trips: @trips.toJSON()}
+      if @$el.find('.data .table thead').length > 0
+        @$el.find('.data .table thead').pushpin({ top: @$el.find('.data .table thead').offset().top });
+    @trips.on "reset", loadTable
+    @trips.on "change", loadTable
+    loadTable()
+    @selected_trips.on "update", =>
+      @$el.find(".menu").html @menuTemplate {stats: @selected_trips.getStatistics()}
+
