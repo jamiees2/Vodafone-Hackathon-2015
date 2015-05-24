@@ -5,9 +5,11 @@ module.exports = class StatView extends Backbone.View
     initialize: =>
         console.log 'Stat View'
         @car = new CarModel("SK014")
-        @updateSpeed()
+        @updateRPM()
         @updateAvgFuel()
         @updateFuelCost()
+        @updateSpeed()
+        @updateService()
 
     remove: =>
       @$el.empty().off()
@@ -30,7 +32,7 @@ module.exports = class StatView extends Backbone.View
                 ret.push({time: x.GPStime, rpm: x.RPM})
             cb(ret)
 
-    updateSpeed: =>
+    updateRPM: =>
         @getEngineData (data) =>
             new Morris.Line({
                 element: 'rpmchart',
@@ -110,3 +112,15 @@ module.exports = class StatView extends Backbone.View
             })
             $("#maxSpeed").text("Top Speed: " + data.maxSpeed)
             $("#avgSpeed").text("Average Speed: " + data.avgSpeed)
+
+    getService: (cb) =>
+        Api.getVehicleInfo "SK014", (data) =>
+            ms = moment(data.NextInspection,"DD/MM/YYYY HH:mm:ss").diff(moment())
+            cb({"days": moment.utc(moment.duration(ms)).format("DD"), "months": moment.utc(moment.duration(ms)).format("MM")})
+
+    updateService: =>
+        @getService (data) =>
+            if data.months != "0"
+                $("#service").text("Your next inspection is in " + data.months + " months and " + data.days + " days")
+            else
+                $("#service").text("Your next inspection is in " + data.days + " days")
