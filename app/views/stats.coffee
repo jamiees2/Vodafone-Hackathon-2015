@@ -33,19 +33,19 @@ module.exports = class StatView extends Backbone.View
         @updateSpeed()
 
 
-    getEngineData: =>
-        ret = []
+    getEngineData: (cb) =>
         Api.getEngineData "SK014", moment().subtract(24, 'hours').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"), (data) =>
+            ret = []
             for x in data
                 ret.push({time: x.GPStime, rpm: x.RPM})
-        return ret
+            cb(ret) 
 
     updateSpeed: =>
-        console.log(@getEngineData())
-        new Morris.Line({
-            element: 'myfirstchart',
-            data: @getEngineData(),
-            xkey: 'time',
-            ykeys: ['rpm'],
-            labels: ['Value']
-        })
+        @getEngineData (data) =>
+            new Morris.Line({
+                element: 'myfirstchart',
+                data: data,
+                xkey: 'time',
+                ykeys: ['rpm'],
+                labels: ['Value']
+            })
