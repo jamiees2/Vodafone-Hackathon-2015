@@ -2,6 +2,7 @@ class MainRouter extends Backbone.Router
     routes:
         '': 'index'
         'trips': 'trips'
+        'stats': 'stats'
     execute: (cb, args, name) =>
         @current.remove() if @current? and @current.remove?
         cb.apply(@,args) if cb?
@@ -18,9 +19,15 @@ class MainRouter extends Backbone.Router
         @current = trips
         trips.launch()
 
+    stats: ->
+        StatView = require 'views/stats'
+        stats = new StatView()
+        @current = stats
+        stats.launch()
+
 main = new MainRouter()
 module.exports = main
 
-    
+
 
 
