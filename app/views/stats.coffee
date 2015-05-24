@@ -6,9 +6,8 @@ module.exports = class StatView extends Backbone.View
         @car = new CarModel("SK014")
         @car.on "change", @updateStats
 
-        @refreshCar()
-        @updateSpeed()
 
+        @refreshCar()
 
     refreshCar: =>
         @car.fetchLocation()
@@ -25,28 +24,31 @@ module.exports = class StatView extends Backbone.View
       @render()
 
     render: =>
-        @trips.on "reset", =>
-            @$el.html @template {trips: @trips.toJSON()}
+        # @car.on "reset", =>
+        @$el.html @template @car.toJSON()
 
     updateStats: =>
         @$el.html @template @car.toJSON()
+        @updateSpeed()
 
-    @plotSpeed = $.plot("#speedChart", [ [1,1,1] ], {
-        series: {
-            shadowSize: 2
-        },
-        yaxis: {
-            min: 0,
-            max: 100
-        },
-        xaxis: {
-            show: false
-        }
-    })
+    # @plotSpeed = $.plot("#speedChart",  [[[0, 12], [7, 12], null, [7, 2.5], [12, 2.5]] ], {
+    #     series: {
+    #         shadowSize: 2
+    #     },
+    #     yaxis: {
+    #         min: 0,
+    #         max: 100
+    #     },
+    #     xaxis: {
+    #         show: false
+    #     }
+    # })
 
+    # updateSpeed: =>
+    #     @plotSpeed.setData([[[0, 12], [7, 12], null, [7, 2.5], [12, 2.5]]])
+
+    #     @plotSpeed.draw()
+    #     setTimeout(update, 4000)
     updateSpeed: =>
-        @plotSpeed.setData([getRandomData()])
-
-        @plotSpeed.draw()
-        setTimeout(update, 4000)
-
+        d = [[0, 12], [7, 12], null, [7, 2.5], [12, 2.5]]
+        $.plot("#speedChart", [ d ])
