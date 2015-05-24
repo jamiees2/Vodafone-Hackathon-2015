@@ -141,3 +141,28 @@ module.exports = class StatView extends Backbone.View
                 ykeys: ['totalFuel'],
                 labels: ['Gas Units']
             })
+
+    getCO2: (cb) =>
+        Api.getTripsData "SK014", moment().subtract(3, 'days').format("YYYY-MM-DD HH:mm"), moment().format("YYYY-MM-DD HH:mm"), (data) =>
+            ret = []
+            sumKm = 0
+            sumCo2 = 0
+            co2 = 0
+            for x in data
+                sumKm += parseInt(x.Km)
+                sumCo2 += parseInt(x.Km) * co2
+                ret.push({time: x.StartTime, Co2: parseInt(x.Km) * co2, km: x.Km})
+            cb(ret)
+
+    updateCO2: =>
+        @getFuelCost (data) =>
+            new Morris.Line({
+                element: 'fuelcostchart',
+                data: data.data,
+                xkey: 'time',
+                ykeys: ['cost', 'km'],
+                labels: ['ISK', 'KM']
+            })
+            $("#sumCost").text("Total Cost: " + data.sumCost + "Kr")
+            $("#sumKm").text("Total KM Driven: " +data.sumKm)
+            $("#sumTime").text("Total Drive Time: " + data.sumTime)
